@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../img/LogoCentral.png";
-
-const Login = () => {};
+import { Link } from "react-router-dom";
 
 const Init = () => {
   const [email, setEmail] = useState("");
@@ -51,7 +50,9 @@ const Init = () => {
         </form>
       </Container>
       <Cadastrolink className="flex">
-        <p>Não tem uma conta? Cadastre-se!</p>
+        <Link to={`/cadastro`}>
+          <p>Não tem uma conta? Cadastre-se!</p>
+        </Link>
       </Cadastrolink>
     </>
   );
@@ -62,7 +63,7 @@ export default Init;
 const Boxtopo = styled.div`
   img {
     width: 180px;
-    margin: 10% 0;
+    margin: 50px 0;
   }
 `;
 
@@ -82,6 +83,11 @@ const Container = styled.div`
   button {
     background: #52b6ff;
     color: #fff;
+
+    &:hover {
+      box-shadow: 0 0 5px #000;
+      text-shadow: 0 0 5px #fff;
+    }
   }
 `;
 
