@@ -1,61 +1,72 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../img/LogoCentral.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Init = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const Login = () => {
-    https: useEffect(() => {
-      const request = axios.post(
-        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
-    });
+  const navigate = useNavigate();
 
-    //...
+  const Login = (e) => {
+    e.preventDefault();
+    const request = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+      {
+        email: email,
+        password: password,
+      }
+    );
+    request
+      .then((response) => {
+        console.log(request);
+        navigate("/hoje");
+      })
+      .catch(erroLogin);
+
+    function erroLogin() {
+      alert(`Verifique seu nome e/ou senha e tente novamente`);
+    }
   };
-  return (
-    <>
-      <Boxtopo className="flex">
-        <img src={Logo} alt="LogoCentral" />
-      </Boxtopo>
-      <Container className="flex">
-        <form>
-          <div>
-            <input
-              type="email"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div className="flex">
-            <button type="submit">Entrar</button>
-          </div>
-        </form>
-      </Container>
-      <Cadastrolink className="flex">
-        <Link to={`/cadastro`}>
-          <p>Não tem uma conta? Cadastre-se!</p>
-        </Link>
-      </Cadastrolink>
-    </>
-  );
+    return (
+      <>
+        <Boxtopo className="flex">
+          <img src={Logo} alt="LogoCentral" />
+        </Boxtopo>
+        <Container className="flex">
+          <form>
+            <div>
+              <input
+                type="email"
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <input
+                type="password"
+                placeholder="senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="flex">
+              <button type="submit" onClick={Login}>
+                Entrar
+              </button>
+            </div>
+          </form>
+        </Container>
+        <Cadastrolink className="flex">
+          <Link to={`/cadastro`}>
+            <p>Não tem uma conta? Cadastre-se!</p>
+          </Link>
+        </Cadastrolink>
+      </>
+    );
 };
 
 export default Init;
