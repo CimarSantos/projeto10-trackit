@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Logo from "../img/LogoCentral.png";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
 
 const Init = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ const Init = () => {
     request
       .then((response) => {
         console.log(request);
+        setUser(response.data);
         navigate("/hoje");
       })
       .catch(erroLogin);
@@ -30,43 +33,43 @@ const Init = () => {
       alert(`Verifique seu nome e/ou senha e tente novamente`);
     }
   };
-    return (
-      <>
-        <Boxtopo className="flex">
-          <img src={Logo} alt="LogoCentral" />
-        </Boxtopo>
-        <Container className="flex">
-          <form>
-            <div>
-              <input
-                type="email"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <input
-                type="password"
-                placeholder="senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="flex">
-              <button type="submit" onClick={Login}>
-                Entrar
-              </button>
-            </div>
-          </form>
-        </Container>
-        <Cadastrolink className="flex">
-          <Link to={`/cadastro`}>
-            <p>Não tem uma conta? Cadastre-se!</p>
-          </Link>
-        </Cadastrolink>
-      </>
-    );
+  return (
+    <>
+      <Boxtopo className="flex">
+        <img src={Logo} alt="LogoCentral" />
+      </Boxtopo>
+      <Container className="flex">
+        <form>
+          <div>
+            <input
+              type="email"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              placeholder="senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="flex">
+            <button type="submit" onClick={Login}>
+              Entrar
+            </button>
+          </div>
+        </form>
+      </Container>
+      <Cadastrolink className="flex">
+        <Link to={`/cadastro`}>
+          <p>Não tem uma conta? Cadastre-se!</p>
+        </Link>
+      </Cadastrolink>
+    </>
+  );
 };
 
 export default Init;

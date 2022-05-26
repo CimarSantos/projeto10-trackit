@@ -31,14 +31,16 @@ const Cadastro = () => {
         );
         navigate("/");
       })
-      .catch(erroStatus);
+      .catch((err) => {
+        const message = err.response.statusText;
+      });
 
-    function erroStatus(response) {
+    /* function erroStatus(response) {
       alert(
         `Ocorreu um erro! Verifique se todos campos foram preenchidos correntamente ou tente com outro e-mail.`
       );
-    }
-  };
+    } */
+  };;
 
   return (
     <>
