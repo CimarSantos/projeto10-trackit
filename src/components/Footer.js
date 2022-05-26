@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <>
       <Barra className="flex">
-        <Link to={`/habito`}>
+        <Link to={`/habitos`}>
           <h3>Hábitos</h3>
         </Link>
         <MenuHoje className="flex">
